@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Buku;
 
 class BukuController extends Controller
 {
@@ -13,7 +14,8 @@ class BukuController extends Controller
      */
     public function index()
     {
-        return view('admin.databuku');
+        $buku = Buku::all();
+        return view('admin.databuku',compact('buku'));
     }
 
     /**
@@ -23,7 +25,7 @@ class BukuController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.add-editBuku');
     }
 
     /**
@@ -34,7 +36,18 @@ class BukuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'nama_buku' => $request->post('nama_buku'),
+            'deskripsi' => $request->post('deskripsi')
+        ];
+
+        $insert = Buku::create($data);
+
+        if($insert){
+            return redirect('AddBuku')->with('message', 'Buku Sukses di Tambahkan');
+        } else {
+            return redirect('AddBuku')->with('message', 'Buku Gagal di Tambahkan');
+        }
     }
 
     /**
@@ -56,7 +69,8 @@ class BukuController extends Controller
      */
     public function edit($id)
     {
-        //
+        $buku = Buku::where('id_buku', $id)->first();
+        return view('admin.add-editBuku', compact('buku'));
     }
 
     /**
@@ -68,7 +82,18 @@ class BukuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = [
+            'nama_buku' => $request->post('nama_buku'),
+            'deskripsi' => $request->post('deskripsi')
+        ];
+
+        $update = Buku::where('id_buku',$id)->update($data);
+
+        if($update){
+            return redirect('AddBuku')->with('message', 'Buku Sukses di Ubah');
+        } else {
+            return redirect('AddBuku')->with('message', 'Buku Gagal di Ubah');
+        }
     }
 
     /**
@@ -79,6 +104,8 @@ class BukuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $nama_book = Buku::where('id_buku',$id)->first();
+        $delete = Buku::where('id_buku', $id)->delete();
+        return redirect('DataBuku')->with('message','Data Buku '.$nama_book->nama_buku.' Sukses Di hapus');
     }
 }

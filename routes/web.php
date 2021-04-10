@@ -28,3 +28,17 @@ Route::get('/DataPeminjam', [PeminjamController::class, 'index']);
 
 Route::post('/Auth', [AuthController::class, 'cekLogin']);
 Route::get('/Logout', [AuthController::class, 'Logout']);
+
+// Buku
+Route::get('/AddBuku', [BukuController::class, 'create']);
+Route::post('/CreateBuku', [BukuController::class, 'store']);
+Route::get('/EditBuku/{id}', [BukuController::class, 'edit']);
+Route::post('/UpdateBuku/{id}', [BukuController::class, 'update']);
+Route::get('/DeleteBuku/{id}', [BukuController::class, 'destroy']);
+
+// peminjam
+Route::get('/AddPeminjam', [PeminjamController::class, 'create']);
+Route::post('/CreatePeminjam', [PeminjamController::class, 'store']);
+Route::get('/EditPeminjam/{id}', [PeminjamController::class, 'edit']);
+Route::post('/UpdatePeminjam/{id}', [PeminjamController::class, 'update']);
+Route::get('/DeletePeminjam/{id}', [PeminjamController::class, 'destroy']);

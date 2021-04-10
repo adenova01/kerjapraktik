@@ -30,7 +30,7 @@ class AuthController extends Controller
                 'nama' => $admin->nama_admin
             ];
             session($data_session);
-            return redirect('Admin');
+            return redirect('Home');
         } else {
             $murid = Murid::where('nis','=',$username,'and','password','=',$password)->first();
             if($murid){

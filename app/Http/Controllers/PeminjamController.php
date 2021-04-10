@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\Murid;
+use App\Models\Buku;
+use App\Models\Peminjam;
 
 class PeminjamController extends Controller
 {
@@ -13,7 +17,12 @@ class PeminjamController extends Controller
      */
     public function index()
     {
-        return view('admin.datapeminjam');
+        $peminjam = DB::table('peminjam')
+            ->join('buku','peminjam.id_buku','=','buku.id_buku')
+            ->join('murid','peminjam.NIS','=','murid.NIS')
+            ->get();
+
+        return view('admin.datapeminjam', compact('peminjam'));
     }
 
     /**
@@ -23,7 +32,9 @@ class PeminjamController extends Controller
      */
     public function create()
     {
-        //
+        $murid = Murid::all();
+        $buku = Buku::all();
+        return view('admin.add-editPeminjam', compact('murid','buku'));
     }
 
     /**
@@ -34,7 +45,21 @@ class PeminjamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'NIS' => $request->post('nis'),
+            'tanggal_pinjam' => $request->post('tgl_pinjam'),
+            'tanggal_kembali' => $request->post('tgl_kembali'),
+            'status' => 'pending',
+            'id_buku' => $request->post('buku')
+        ];
+
+        $insert = Peminjam::insert($data);
+
+        if($insert){
+            return redirect('AddPeminjam')->with('message','Peminjam buku sukses di tambahkan');
+        } else {
+            return redirect('AddPeminjam')->with('message','Peminjam buku gagal di tambahkan');
+        }
     }
 
     /**
@@ -45,7 +70,7 @@ class PeminjamController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -56,7 +81,10 @@ class PeminjamController extends Controller
      */
     public function edit($id)
     {
-        //
+        $murid = Murid::all();
+        $buku = Buku::all();
+        $peminjam = Peminjam::where('id_peminjam',$id)->first();
+        return view('admin.add-editPeminjam', compact('murid','buku','peminjam'));
     }
 
     /**
@@ -68,7 +96,21 @@ class PeminjamController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = [
+            'NIS' => $request->post('nis'),
+            'tanggal_pinjam' => $request->post('tgl_pinjam'),
+            'tanggal_kembali' => $request->post('tgl_kembali'),
+            'status' => 'pending',
+            'id_buku' => $request->post('buku')
+        ];
+
+        $update = Peminjam::where('id_peminjam',$id)->update($data);
+
+        if($update){
+            return redirect('AddPeminjam')->with('message','Peminjam buku sukses di ubah');
+        } else {
+            return redirect('AddPeminjam')->with('message','Peminjam buku gagal di ubah');
+        }
     }
 
     /**
@@ -79,6 +121,12 @@ class PeminjamController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $peminjam = Peminjam::where('id_peminjam',$id)->delete();
+
+        if($peminjam){
+            return redirect('DataPeminjam')->with('message','Data peminjam sukses di hapus');
+        } else {
+            return redirect('DataPeminjam')->with('message','Data peminjam gagal di hapus');
+        }
     }
 }
