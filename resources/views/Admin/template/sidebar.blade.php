@@ -56,7 +56,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Form Utilities:</h6>
                         <a class="collapse-item" href="{{ url('AddBuku') }}">Add Buku</a>
-                        <a class="collapse-item" href="utilities-border.html">Add Murid</a>
+                        <a class="collapse-item" href="{{ url('AddMurid') }}">Add Murid</a>
                         <a class="collapse-item" href="{{ url('AddPeminjam') }}">Peminjam</a>
                     </div>
                 </div>

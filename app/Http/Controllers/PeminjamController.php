@@ -21,7 +21,6 @@ class PeminjamController extends Controller
             ->join('buku','peminjam.id_buku','=','buku.id_buku')
             ->join('murid','peminjam.NIS','=','murid.NIS')
             ->get();
-
         return view('admin.datapeminjam', compact('peminjam'));
     }
 

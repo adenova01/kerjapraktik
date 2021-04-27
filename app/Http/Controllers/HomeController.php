@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Buku;
+use App\Models\Murid;
+use App\Models\Peminjam;
 
 class HomeController extends Controller
 {
@@ -20,7 +23,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('Admin.home');
+        $data = [
+            'count_buku' => Buku::count(),
+            'count_murid' => Murid::count(),
+            'count_peminjam' => Peminjam::count()
+        ];
+        return view('Admin.home', $data);
     }
 
     /**
