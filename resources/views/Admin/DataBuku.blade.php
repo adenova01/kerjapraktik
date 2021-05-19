@@ -16,6 +16,7 @@
                 <thead>
                     <tr>
                         <th>Id Buku</th>
+                        <th>Gambar Buku</th>
                         <th>Nama Buku</th>
                         <th>Deskripsi</th>
                         <th>Aksi</th>
@@ -24,6 +25,7 @@
                 <tfoot>
                     <tr>
                         <th>Id Buku</th>
+                        <th>Gambar Buku</th>
                         <th>Nama Buku</th>
                         <th>Deskripsi</th>
                         <th>Aksi</th>
@@ -33,6 +35,7 @@
                 @foreach($buku as $row)
                     <tr>
                         <td>{{$row->id_buku}}</td>
+                        <td><img src="{{ url('gambar_buku/'.$row->gambar) }}" width="90" height="90" /></td>
                         <td>{{$row->nama_buku}}</td>
                         <td>{{$row->deskripsi}}</td>
                         <td>

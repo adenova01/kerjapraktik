@@ -36,17 +36,30 @@ class BukuController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
-            'nama_buku' => $request->post('nama_buku'),
-            'deskripsi' => $request->post('deskripsi')
-        ];
 
-        $insert = Buku::create($data);
+        $file = $request->file('gambar');
+        $nama = str_replace(' ', '', $file->getClientOriginalName());
+        $size = $file->getSize();
+        $location = 'gambar_buku';
+        
+        $upload = $file->move($location, $nama);
 
-        if($insert){
-            return redirect('AddBuku')->with('message', 'Buku Sukses di Tambahkan');
+        if($upload){
+            
+            $data = [
+                'nama_buku' => $request->post('nama_buku'),
+                'deskripsi' => $request->post('deskripsi'),
+                'gambar'    => $nama
+            ];
+            $insert = Buku::create($data);
+
+            if($insert){
+                return redirect('AddBuku')->with('message', 'Buku Sukses di Tambahkan');
+            } else {
+                return redirect('AddBuku')->with('message', 'Buku Gagal di Tambahkan');
+            }
         } else {
-            return redirect('AddBuku')->with('message', 'Buku Gagal di Tambahkan');
+            return redirect('AddBuku')->with('message', 'Gambar Gagal di Upload Silahkan Coba Lagi');
         }
     }
 
@@ -82,17 +95,29 @@ class BukuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = [
-            'nama_buku' => $request->post('nama_buku'),
-            'deskripsi' => $request->post('deskripsi')
-        ];
+        $file = $request->file('gambar');
+        $nama = str_replace(' ', '', $file->getClientOriginalName());
+        $size = $file->getSize();
+        $location = 'gambar_buku';
+        
+        $upload = $file->move($location, $nama);
 
-        $update = Buku::where('id_buku',$id)->update($data);
+        if($upload){
+            $data = [
+                'nama_buku' => $request->post('nama_buku'),
+                'deskripsi' => $request->post('deskripsi'),
+                'gambar'    => $nama
+            ];
 
-        if($update){
-            return redirect('AddBuku')->with('message', 'Buku Sukses di Ubah');
+            $update = Buku::where('id_buku', $id)->update($data);
+
+            if($update){
+                return redirect('AddBuku')->with('message', 'Buku Sukses di Ubah');
+            } else {
+                return redirect('AddBuku')->with('message', 'Buku Gagal di Ubah');
+            }
         } else {
-            return redirect('AddBuku')->with('message', 'Buku Gagal di Ubah');
+            return redirect('AddBuku')->with('message', 'Gambar Gagal di Upload Silahkan Coba Lagi');
         }
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Murid;
+use App\Models\Buku;
 
 class MuridController extends Controller
 {
@@ -16,6 +17,12 @@ class MuridController extends Controller
     {
         $murid = Murid::all();
         return view('admin.datamurid', compact('murid'));
+    }
+
+    public function home_page()
+    {
+        $buku = Buku::all();
+        return view('Murid.home', compact('buku'));
     }
 
     /**

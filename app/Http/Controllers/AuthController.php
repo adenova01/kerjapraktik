@@ -38,7 +38,7 @@ class AuthController extends Controller
                     'nama' => $murid->nama_murid
                 ];
                 session($data_session);
-                return view('Murid.home');
+                return redirect('HomeMurid');
             } else {
                 echo "gagal";
                 return redirect('/');

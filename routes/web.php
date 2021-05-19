@@ -21,6 +21,7 @@ use App\Http\Controllers\PeminjamController;
 
 Route::get('/', [AuthController::class, 'index']);
 Route::get('/Home', [HomeController::class, 'index']);
+Route::get('/HomeMurid', [MuridController::class, 'home_page']);
 Route::get('/DataAdmin', [AdminController::class, 'index']);
 Route::get('/DataMurid', [MuridController::class, 'index']);
 Route::get('/DataBuku', [BukuController::class, 'index']);
