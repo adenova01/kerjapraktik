@@ -74,7 +74,7 @@
                                     <p class="card-text">{{ $row->deskripsi }}</p>
                                     <div class="row">
                                         <div class="col-6">
-                                            <a href="#" class="btn btn-primary">Pinjam</a>
+                                            <button onClick="id_buku({{$row->id_buku}})" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Pinjam</button>
                                         </div>
                                         <div class="col-6">
                                             
@@ -88,6 +88,44 @@
                 </div>
             </div>
         </div>
+        <!-- modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Form Peminjaman</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        @csrf
+                        <input type="hidden" id="id_buku" name="id_buku" value="" readonly="">
+                        <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Tanggal Pinjam</label>
+                            <input class="form-control" name="tgl_pinjam" type="date" placeholder="Default input">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Tanggal Kembali</label>
+                            <input class="form-control" name="tgl_kembali" type="date" placeholder="Default input">
+                        </div>
+                    </div>
+                </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- end modal -->
         <!-- Footer-->
         <footer class="py-3 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Perpustakaan 2021</p></div>
@@ -97,5 +135,11 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="{{ url('') }}/assetsMurid/js/scripts.js"></script>
+        <script>
+            function id_buku(id)
+            {
+                $('#id_buku').val(id);
+            }
+    </script>
     </body>
 </html>
