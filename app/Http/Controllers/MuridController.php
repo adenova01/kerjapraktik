@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Murid;
 use App\Models\Buku;
+use App\Models\Peminjam;
 
 class MuridController extends Controller
 {
@@ -22,7 +23,8 @@ class MuridController extends Controller
     public function home_page()
     {
         $buku = Buku::all();
-        return view('Murid.home', compact('buku'));
+        $jumlah_pinjam = Peminjam::where('nis', session('nis'))->count();
+        return view('Murid.home', compact('buku','jumlah_pinjam'));
     }
 
     /**

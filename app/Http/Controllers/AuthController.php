@@ -35,7 +35,8 @@ class AuthController extends Controller
             $murid = Murid::where('nis','=',$username,'and','password','=',$password)->first();
             if($murid){
                 $data_session = [
-                    'nama' => $murid->nama_murid
+                    'nama' => $murid->nama_murid,
+                    'nis' => $murid->nis
                 ];
                 session($data_session);
                 return redirect('HomeMurid');
