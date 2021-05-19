@@ -99,28 +99,27 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post">
+                    <form action="{{url('CreatePeminjam')}}" method="post">
                         @csrf
-                        <input type="hidden" id="id_buku" name="id_buku" value="" readonly="">
+                        <input type="hidden" id="id_buku" name="buku" value="" readonly="">
+                        <input type="hidden" name="nis" value="{{session('nis')}}" readonly="">
                         <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Tanggal Pinjam</label>
-                            <input class="form-control" name="tgl_pinjam" type="date" placeholder="Default input">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">Tanggal Pinjam</label>
+                                    <input class="form-control" name="tgl_pinjam" type="date" placeholder="Default input">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">Tanggal Kembali</label>
+                                    <input class="form-control" name="tgl_kembali" type="date" placeholder="Default input">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Tanggal Kembali</label>
-                            <input class="form-control" name="tgl_kembali" type="date" placeholder="Default input">
-                        </div>
-                    </div>
-                </div>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
                 </div>
             </div>
