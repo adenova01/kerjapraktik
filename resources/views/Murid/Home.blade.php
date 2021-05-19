@@ -19,7 +19,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="#"></a>
                                 Home
                                 <span class="sr-only">(current)</span>
                             </a>
@@ -30,7 +30,7 @@
                                 {{session('nama')}}
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Logout</a>
+                                <a class="dropdown-item" href="{{ url('/Logout') }}">Logout</a>
                             </div>
                         </div>
                     </ul>
