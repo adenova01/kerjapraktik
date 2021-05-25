@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Murid;
 use App\Models\Buku;
 use App\Models\Peminjam;
+use App\Http\Controllers\MailController;
 
 class MuridController extends Controller
 {
@@ -17,7 +18,7 @@ class MuridController extends Controller
     public function index()
     {
         $murid = Murid::all();
-        return view('admin.datamurid', compact('murid'));
+        return view('admin.page.datamurid', compact('murid'));
     }
 
     public function home_page()
@@ -35,7 +36,7 @@ class MuridController extends Controller
     public function create()
     {
         $action = "AddMurid";
-        return view('admin.add-editMurid', compact('action'));
+        return view('admin.page.add-editMurid', compact('action'));
     }
 
     /**
@@ -46,22 +47,39 @@ class MuridController extends Controller
      */
     public function store(Request $request)
     {
-        $nis_db = Murid::count()+1;
-        $nis = (date('y').''.$nis_db);
-        $pass = Murid::get('password');
-        $new_pass = rand(1, 10000);
+        if(Murid::count() != 0){
+            $nis_db = Murid::count()+1;
+            $nis = (date('y').'000'.$nis_db);
+        } else {
+            $nis = (date('y').'000'.(Murid::count()+1));
+        }
 
-        foreach($pass as $value){
-            if($new_pass != $value->password){
-                $new_pass_db = $new_pass;
-                break;
-            } else {
-                $new_pass = rand(1, 10000);
+        $new_pass = rand(1000, 1000000);
+        
+        if(Murid::count() !=0 ){
+            $pass = Murid::get('password');
+            foreach($pass as $value){
+                if($new_pass == $value->password){
+                    $new_pass = rand(1000, 1000000);
+                } else {
+                    break;
+                }
             }
         }
 
+        $new_pass_db = (date('y')).''.$new_pass;
+
+        $file = $request->file('foto_murid');
+        $extension = $file->extension();
+        $nama_murid = str_replace(' ', '_', $request->post('nama_murid'));
+        $name_save = $nis.'_'.$nama_murid.'.'.$extension;
+        $location = 'foto_murid';
+        
+        $upload = $file->move($location, $name_save);
+
         $data = [
             'nis' => $nis,
+            'foto' => $name_save,
             'nama_murid' => $request->post('nama_murid'),
             'jenis_kelamin' => $request->post('jenkel'),
             'alamat' => $request->post('alamat'),
@@ -71,10 +89,22 @@ class MuridController extends Controller
         $insert = Murid::insert($data);
 
         if($insert){
-            return redirect('AddMurid')->with('message','Murid Berhasil Di tambahkan');
+            return redirect('AddMurid')->with('message','Murid Sukses Di tambahkan');
         } else {
             return redirect('AddMurid')->with('message','Murid gagal Di tambahkan');
         }
+    }
+
+    public function detil_pinjaman()
+    {
+        $peminjam = Peminjam::where('nis', session('nis'))->get();
+
+        foreach($peminjam as $i => $row){
+            $data_buku[$i] = Buku::where('id_buku',$row->id_buku)->first();
+        }
+
+        // dd($data_buku);
+        return view('murid.detil_pinjam', compact('data_buku','peminjam'));
     }
 
     /**
@@ -98,7 +128,7 @@ class MuridController extends Controller
     {
         $action = 'UpdateMurid/'.$id;
         $murid = Murid::where('NIS', $id)->first();
-        return view('admin.add-editMurid', compact('murid','action'));
+        return view('admin.page.add-editMurid', compact('murid','action'));
     }
 
     /**

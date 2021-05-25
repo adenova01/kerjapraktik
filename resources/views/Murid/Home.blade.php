@@ -19,7 +19,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Pinjaman <span class="badge badge-primary">{{$jumlah_pinjam}}</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/DetilPinjam') }}">Pinjaman <span class="badge badge-primary">{{$jumlah_pinjam}}</span></a></li>
                         <div class="dropdown ml-2">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{session('nama')}}
@@ -36,7 +36,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
-                    <h1 class="my-4">Shop Name</h1>
+                    <h1 class="my-4">Buku Kategori</h1>
                     <div class="list-group">
                         <a class="list-group-item" href="#">Category 1</a>
                         <a class="list-group-item" href="#">Category 2</a>

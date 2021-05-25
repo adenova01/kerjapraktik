@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MuridController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\PeminjamController;
+use App\Http\Controllers\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,3 +51,4 @@ Route::post('/AddMurid', [MuridController::class, 'store']);
 Route::post('/UpdateMurid/{id}', [MuridController::class, 'update']);
 Route::get('/EditMurid/{id}', [MuridController::class, 'edit']);
 Route::get('/DeleteMurid/{id}', [MuridController::class, 'destroy']);
+Route::get('/DetilPinjam', [MuridController::class, 'detil_pinjaman']);

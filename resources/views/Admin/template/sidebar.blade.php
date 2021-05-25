@@ -39,7 +39,7 @@
                         <a class="collapse-item" href="{{ url('DataMurid') }}">Murid</a>
                         <a class="collapse-item" href="{{ url('DataBuku') }}">Buku</a>
                         <a class="collapse-item" href="{{ url('DataPeminjam') }}">Peminjam</a>
-                        <a class="collapse-item" href="{{ url('DataAdmin') }}">Admin</a>
+                        <a class="collapse-item" href="{{ url('DataAdmin') }}">Users</a>
                     </div>
                 </div>
             </li>

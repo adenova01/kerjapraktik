@@ -14,7 +14,7 @@
             {{Request::segment(1)}}
         </div>
         <div class="card-body">
-            <form action="{{ Request::segment(2) == null ? url($action) : url($action) }}" method="post">
+            <form action="{{ Request::segment(2) == null ? url($action) : url($action) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Nama Murid</label>
@@ -38,6 +38,10 @@
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">alamat</label>
                     <textarea name="alamat" class="form-control" id="exampleFormControlTextarea1" rows="3">{{ Request::segment(2) != null ? $murid->alamat : '' }}</textarea>
+                </div>
+                <div class="custom-file mb-3">
+                    <input type="file" name="foto_murid" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Pilih foto</label>
                 </div>
                 <button type="submit" class="btn btn-{{Request::segment(2) != null ? 'warning' : 'success'}} btn-icon-split">
                     <span class="icon text-white-50">

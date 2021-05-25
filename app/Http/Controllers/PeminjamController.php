@@ -21,7 +21,7 @@ class PeminjamController extends Controller
             ->join('buku','peminjam.id_buku','=','buku.id_buku')
             ->join('murid','peminjam.NIS','=','murid.NIS')
             ->get();
-        return view('admin.datapeminjam', compact('peminjam'));
+        return view('admin.page.datapeminjam', compact('peminjam'));
     }
 
     /**
@@ -33,7 +33,7 @@ class PeminjamController extends Controller
     {
         $murid = Murid::all();
         $buku = Buku::all();
-        return view('admin.add-editPeminjam', compact('murid','buku'));
+        return view('admin.page.add-editPeminjam', compact('murid','buku'));
     }
 
     /**
@@ -83,7 +83,7 @@ class PeminjamController extends Controller
         $murid = Murid::all();
         $buku = Buku::all();
         $peminjam = Peminjam::where('id_peminjam',$id)->first();
-        return view('admin.add-editPeminjam', compact('murid','buku','peminjam'));
+        return view('admin.page.add-editPeminjam', compact('murid','buku','peminjam'));
     }
 
     /**

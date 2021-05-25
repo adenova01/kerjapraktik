@@ -13,10 +13,11 @@
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+                <thead class="text-center">
                     <tr>
+                        <th>Foto</th>
                         <th>NIS</th>
-                        <th>Nama Murid</th>
+                        <th>Nama</th>
                         <th>Jenis Kelamin</th>
                         <th>Alamat</th>
                         <th>Password</th>
@@ -26,7 +27,8 @@
                 <tbody>
                 @foreach($murid as $row)
                     <tr>
-                        <td>{{$row->nis}}</td>
+                        <td class="text-center"><img class="img-thumbnail" src="{{ url('foto_murid/'.$row->foto) }}" width="90" height="110" /></td>
+                        <td class="text-primary">{{$row->nis}}</td>
                         <td>{{$row->nama_murid}}</td>
                         <td>{{$row->jenis_kelamin == 'L' ? 'laki-laki' : 'perempuan'}}</td>
                         <td>{{$row->alamat}}</td>
@@ -37,6 +39,11 @@
                         </td>
                     </tr>
                 @endforeach
+                @if($murid->count() == 0)
+                    <tr>
+                        <td colspan="7" class="text-center">No Data Found</td>
+                    </tr>
+                @endif
                 </tbody>
             </table>
         </div>

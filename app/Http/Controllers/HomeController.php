@@ -28,7 +28,7 @@ class HomeController extends Controller
             'count_murid' => Murid::count(),
             'count_peminjam' => Peminjam::count()
         ];
-        return view('Admin.home', $data);
+        return view('admin.page.home', $data);
     }
 
     /**
