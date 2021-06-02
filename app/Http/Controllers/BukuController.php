@@ -49,8 +49,10 @@ class BukuController extends Controller
             $data = [
                 'nama_buku' => $request->post('nama_buku'),
                 'deskripsi' => $request->post('deskripsi'),
-                'gambar'    => $nama
+                'gambar'    => $nama,
+                'create_by' => session('id')
             ];
+
             $insert = Buku::create($data);
 
             if($insert){

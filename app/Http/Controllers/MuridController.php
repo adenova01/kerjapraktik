@@ -83,7 +83,8 @@ class MuridController extends Controller
             'nama_murid' => $request->post('nama_murid'),
             'jenis_kelamin' => $request->post('jenkel'),
             'alamat' => $request->post('alamat'),
-            'password' => $new_pass_db
+            'password' => $new_pass_db,
+            'create_by' => session('id')
         ];
 
         $insert = Murid::insert($data);

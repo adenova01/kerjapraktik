@@ -54,10 +54,14 @@ class PeminjamController extends Controller
 
         $insert = Peminjam::insert($data);
 
-        if($insert){
-            return redirect('AddPeminjam')->with('message','Peminjam buku sukses di tambahkan');
-        } else {
-            return redirect('AddPeminjam')->with('message','Peminjam buku gagal di tambahkan');
+        if(session('id') != null){
+            if($insert){
+                return redirect('AddPeminjam')->with('message','Peminjam buku sukses di tambahkan');
+            } else {
+                return redirect('AddPeminjam')->with('message','Peminjam buku gagal di tambahkan');
+            }
+        }else {
+            return redirect('DetilPinjam');
         }
     }
 
@@ -110,6 +114,19 @@ class PeminjamController extends Controller
         } else {
             return redirect('AddPeminjam')->with('message','Peminjam buku gagal di ubah');
         }
+    }
+
+    public function update_status($id)
+    {
+        $data = [
+            'status' => 'sukses di pinjam'
+        ];
+
+        $update = Peminjam::where('id_peminjam',$id)->update($data);
+
+        if($update){
+            return redirect()->back();
+        }  
     }
 
     /**

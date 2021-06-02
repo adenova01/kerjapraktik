@@ -27,6 +27,7 @@ class AuthController extends Controller
         
         if($admin){
             $data_session = [
+                'id'   => $admin->id_admin,
                 'nama' => $admin->nama_admin
             ];
             session($data_session);
@@ -49,7 +50,7 @@ class AuthController extends Controller
 
     public function Logout(Request $request)
     {
-        $request->session()->forget(['nama']);
+        $request->session()->forget(['nama','nis','id']);
         return redirect('/');
     }
 
