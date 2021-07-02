@@ -8,6 +8,7 @@ use App\Models\Buku;
 use App\Models\Peminjam;
 use App\Models\Kategori;
 use App\Http\Controllers\MailController;
+use Illuminate\Support\Facades\DB;
 use \DateTime;
 
 class MuridController extends Controller
@@ -32,7 +33,9 @@ class MuridController extends Controller
         }
 
         $kategori = Kategori::all();
-        $jumlah_pinjam = Peminjam::where('nis', session('nis'))->count();
+        $jumlah_pinjam = Peminjam::where('nis', session('nis'))
+            ->where('status','not like','dikembalikan')
+            ->count();
         return view('Murid.home', compact('buku','jumlah_pinjam','kategori'));
     }
 
@@ -110,11 +113,11 @@ class MuridController extends Controller
         $tgl_sekarang = new DateTime();
         
         foreach($peminjam as $i => $row){
-            $data_buku[$i] = Buku::where('id_buku',$row->id_buku)->first();
+            $data_buku[$i] = DB::table('buku')
+                ->where('id_buku',$row->id_buku)->first();
             $tgl2 = new DateTime($row->tanggal_kembali);
             $tenggang_waktu[$i] = $tgl_sekarang->diff($tgl2)->days;
         }
-
 
         return view('murid.detil_pinjam', compact('data_buku','peminjam','tenggang_waktu'));
     }

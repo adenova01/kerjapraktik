@@ -22,7 +22,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item"><a class="nav-link" href="{{ url('/HomeMurid') }}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/DetilPinjam') }}">Pinjaman <span class="badge badge-primary"></span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/DetilPinjam') }}">Pinjaman</a></li>
                         <div class="dropdown ml-2">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{session('nama')}}
@@ -92,9 +92,11 @@
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
-                                    <a class="btn btn-outline-dark mt-auto" href="{{ $peminjam[$i]->status == 'pending' ? url('UpdateStatus/'.$peminjam[$i]->id_peminjam) : '#' }}">
-                                        {{ $peminjam[$i]->status == 'pending' ? 'Terima' : 'Kembalikan' }}
-                                    </a>
+                                    @if ($peminjam[$i]->status != 'dikembalikan')
+                                        <a class="btn btn-outline-dark mt-auto" href="{{ $peminjam[$i]->status == 'pending' ? url('UpdateStatus/'.$peminjam[$i]->id_peminjam) : url('UpdateStatus/'.$peminjam[$i]->id_peminjam.'/'.'kembali') }}">
+                                            {{ $peminjam[$i]->status == 'pending' ? 'Terima' : 'Kembalikan' }}
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -108,6 +110,7 @@
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
         </footer>
         <!-- Bootstrap core JS-->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="{{ url('') }}/assetsMurid/js/scripts.js"></script>

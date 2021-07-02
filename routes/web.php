@@ -49,6 +49,7 @@ Route::get('/EditPeminjam/{id}', [PeminjamController::class, 'edit']);
 Route::post('/UpdatePeminjam/{id}', [PeminjamController::class, 'update']);
 Route::get('/DeletePeminjam/{id}', [PeminjamController::class, 'destroy']);
 Route::get('/UpdateStatus/{id}', [PeminjamController::class, 'update_status']);
+Route::get('/UpdateStatus/{id}/{status}', [PeminjamController::class, 'update_status']);
 
 //murid
 Route::get('/AddMurid', [MuridController::class, 'create']);

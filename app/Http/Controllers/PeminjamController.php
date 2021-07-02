@@ -116,11 +116,17 @@ class PeminjamController extends Controller
         }
     }
 
-    public function update_status($id)
+    public function update_status($id, $kembali = false)
     {
-        $data = [
-            'status' => 'sukses di pinjam'
-        ];
+        if($kembali == false){
+            $data = [
+                'status' => 'sukses di pinjam'
+            ];
+        } else {
+            $data = [
+                'status' => 'dikembalikan'
+            ];
+        }
 
         $update = Peminjam::where('id_peminjam',$id)->update($data);
 
