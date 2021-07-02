@@ -21,6 +21,19 @@
                     <input name="nama_buku" type="text" class="form-control" id="exampleFormControlInput1" placeholder="example" value="@if(Request::segment(2) != null){{$buku->nama_buku}}@endif">
                 </div>
                 <div class="form-group">
+                    <label for="exampleFormControlInput1">Kategori Buku</label>
+                    <select class="form-control js-example-basic-single" name="kode_kategori">
+                        <option disabled selected>- Pilih Kategori -</option>
+                        @foreach($kategori as $row)
+                            @if(Request::segment(2) != null)
+                            <option <?php if($row->kode_kategori == $buku->kode_kategori) echo 'selected' ?> value="{{$row->kode_kategori}}">{{$row->nama_kategori}}</option>
+                            @else
+                                <option value="{{$row->kode_kategori}}">{{$row->nama_kategori}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="exampleFormControlTextarea1">Deskripsi</label>
                     <textarea name="deskripsi" class="form-control" id="exampleFormControlTextarea1" rows="3">@if(Request::segment(2) != null){{$buku->deskripsi}}@endif</textarea>
                 </div>

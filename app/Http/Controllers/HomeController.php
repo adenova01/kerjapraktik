@@ -26,7 +26,7 @@ class HomeController extends Controller
         $data = [
             'count_buku' => Buku::count(),
             'count_murid' => Murid::count(),
-            'count_peminjam' => Peminjam::count()
+            'count_peminjam' => Peminjam::count(),
         ];
         return view('admin.page.home', $data);
     }

@@ -21,8 +21,12 @@ use App\Http\Controllers\MailController;
 */
 
 Route::get('/', [AuthController::class, 'index']);
+// murid
 Route::get('/Home', [HomeController::class, 'index']);
 Route::get('/HomeMurid', [MuridController::class, 'home_page']);
+Route::get('/HomeMurid/{kode}', [MuridController::class, 'home_page']);
+
+// admin
 Route::get('/DataAdmin', [AdminController::class, 'index']);
 Route::get('/DataMurid', [MuridController::class, 'index']);
 Route::get('/DataBuku', [BukuController::class, 'index']);

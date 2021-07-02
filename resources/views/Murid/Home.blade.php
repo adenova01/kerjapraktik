@@ -38,9 +38,10 @@
                 <div class="col-lg-3">
                     <h1 class="my-4">Buku Kategori</h1>
                     <div class="list-group">
-                        <a class="list-group-item" href="#">Category 1</a>
-                        <a class="list-group-item" href="#">Category 2</a>
-                        <a class="list-group-item" href="#">Category 3</a>
+                        @foreach ($kategori as $item)
+                            <a class="list-group-item" href="{{url('/HomeMurid').'/'.$item->kode_kategori}}">{{$item->nama_kategori}}</a>
+                        @endforeach
+                        <a class="list-group-item" href="{{url('/HomeMurid')}}">All Book</a>
                     </div>
                 </div>
                 <div class="col-lg-9">

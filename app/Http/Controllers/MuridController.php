@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Murid;
 use App\Models\Buku;
 use App\Models\Peminjam;
+use App\Models\Kategori;
 use App\Http\Controllers\MailController;
+use \DateTime;
 
 class MuridController extends Controller
 {
@@ -21,11 +23,17 @@ class MuridController extends Controller
         return view('admin.page.datamurid', compact('murid'));
     }
 
-    public function home_page()
+    public function home_page($kode_kat = false)
     {
-        $buku = Buku::all();
+        if($kode_kat){
+            $buku = Buku::where('kode_kategori', $kode_kat)->get();
+        } else {
+            $buku = Buku::all();
+        }
+
+        $kategori = Kategori::all();
         $jumlah_pinjam = Peminjam::where('nis', session('nis'))->count();
-        return view('Murid.home', compact('buku','jumlah_pinjam'));
+        return view('Murid.home', compact('buku','jumlah_pinjam','kategori'));
     }
 
     /**
@@ -99,13 +107,16 @@ class MuridController extends Controller
     public function detil_pinjaman()
     {
         $peminjam = Peminjam::where('nis', session('nis'))->get();
-
+        $tgl_sekarang = new DateTime();
+        
         foreach($peminjam as $i => $row){
             $data_buku[$i] = Buku::where('id_buku',$row->id_buku)->first();
+            $tgl2 = new DateTime($row->tanggal_kembali);
+            $tenggang_waktu[$i] = $tgl_sekarang->diff($tgl2)->days;
         }
 
-        // dd($data_buku);
-        return view('murid.detil_pinjam', compact('data_buku','peminjam'));
+
+        return view('murid.detil_pinjam', compact('data_buku','peminjam','tenggang_waktu'));
     }
 
     /**
@@ -168,6 +179,7 @@ class MuridController extends Controller
     public function destroy($id)
     {
         $delete = Murid::where('nis', $id)->delete();
+        
         if($delete){
             return redirect('DataMurid')->with('message', 'Data murid sukses di hapus');
         }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Buku;
+use App\Models\Kategori;
 
 class BukuController extends Controller
 {
@@ -14,7 +16,9 @@ class BukuController extends Controller
      */
     public function index()
     {
-        $buku = Buku::all();
+        $buku = DB::table('buku')
+            ->join('kategori','buku.kode_kategori','=','kategori.kode_kategori')
+            ->get();
         return view('admin.page.databuku',compact('buku'));
     }
 
@@ -25,7 +29,8 @@ class BukuController extends Controller
      */
     public function create()
     {
-        return view('admin.page.add-editBuku');
+        $kategori = Kategori::all();
+        return view('admin.page.add-editBuku', compact('kategori'));
     }
 
     /**
@@ -49,11 +54,12 @@ class BukuController extends Controller
             $data = [
                 'nama_buku' => $request->post('nama_buku'),
                 'deskripsi' => $request->post('deskripsi'),
+                'kode_kategori' => $request->post('kode_kategori'),
                 'gambar'    => $nama,
                 'create_by' => session('id')
             ];
 
-            $insert = Buku::create($data);
+            $insert = Buku::insert($data);
 
             if($insert){
                 return redirect('AddBuku')->with('message', 'Buku Sukses di Tambahkan');
@@ -84,8 +90,9 @@ class BukuController extends Controller
      */
     public function edit($id)
     {
+        $kategori = Kategori::all();
         $buku = Buku::where('id_buku', $id)->first();
-        return view('admin.page.add-editBuku', compact('buku'));
+        return view('admin.page.add-editBuku', compact('buku','kategori'));
     }
 
     /**
