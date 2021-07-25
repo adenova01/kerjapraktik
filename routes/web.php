@@ -20,7 +20,11 @@ use App\Http\Controllers\MailController;
 |
 */
 
+Route::post('/Auth', [AuthController::class, 'cekLogin']);
+Route::get('/Logout', [AuthController::class, 'Logout']);
+
 Route::get('/', [AuthController::class, 'index']);
+
 // murid
 Route::get('/Home', [HomeController::class, 'index']);
 Route::get('/HomeMurid', [MuridController::class, 'home_page']);
@@ -31,9 +35,6 @@ Route::get('/DataAdmin', [AdminController::class, 'index']);
 Route::get('/DataMurid', [MuridController::class, 'index']);
 Route::get('/DataBuku', [BukuController::class, 'index']);
 Route::get('/DataPeminjam', [PeminjamController::class, 'index']);
-
-Route::post('/Auth', [AuthController::class, 'cekLogin']);
-Route::get('/Logout', [AuthController::class, 'Logout']);
 
 // Buku
 Route::get('/AddBuku', [BukuController::class, 'create']);
