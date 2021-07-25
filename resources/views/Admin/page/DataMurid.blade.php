@@ -35,7 +35,7 @@
                         <td>{{$row->password}}</td>
                         <td>
                             <a href="{{ url('EditMurid/'.$row->nis) }}" class="btn btn-warning btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="{{ url('DeleteMurid/'.$row->nis) }}" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></a>
+                            {{-- <a href="{{ url('DeleteMurid/'.$row->nis) }}" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></a> --}}
                         </td>
                     </tr>
                 @endforeach

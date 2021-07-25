@@ -46,7 +46,7 @@
                         <td>@if($row->denda == null) 0 @else {{$row->denda}}@endif</td>
                         <td>
                             <a href="{{ url('EditPeminjam/'.$row->id_peminjam) }}" class="btn btn-warning btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="{{ url('DeletePeminjam/'.$row->id_peminjam) }}" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></a>
+                            {{-- <a href="{{ url('DeletePeminjam/'.$row->id_peminjam) }}" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></a> --}}
                         </td>
                     </tr>
                 @endforeach

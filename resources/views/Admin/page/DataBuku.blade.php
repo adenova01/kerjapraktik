@@ -43,7 +43,7 @@
                         <td>{{$row->deskripsi}}</td>
                         <td>
                             <a href="{{ url('EditBuku/'.$row->id_buku) }}" class="btn btn-warning btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="{{ url('DeleteBuku/'.$row->id_buku) }}" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></a>
+                            {{-- <a href="{{ url('DeleteBuku/'.$row->id_buku) }}" class="btn btn-danger btn-circle"><i class="fa fa-trash"></i></a> --}}
                         </td>
                     </tr>
                 @endforeach
